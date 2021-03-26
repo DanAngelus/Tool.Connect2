@@ -1,12 +1,12 @@
 {
-  "ID":"DA2C23B084D411DB66FE0C79D6C2A6H",
-  "ActionKeyword":"dssh",
-  "Name":"DSSH",
-  "Description":"SSH Shortcut Tool",
+  "ID":"232C23B084D411DB66FE0C79D6C2A6H",
+  "ActionKeyword":"ct2",
+  "Name":"Connect 2",
+  "Description":"Connection shortcut tool",
   "Author":"DanAngelus",
   "Version":"1.0.0",
   "Language":"python",
-  "Website":"http://www.getwox.com",
+  "Website":"https://danangelus.uk",
   "IcoPath": "Images\\pic.png",
-  "ExecuteFileName":"PluginManagement.py"
+  "ExecuteFileName":"main.py"
 }
