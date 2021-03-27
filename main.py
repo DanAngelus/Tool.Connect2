@@ -5,10 +5,10 @@ from subprocess import Popen
 
 class Main(Wox):
 
-  def loadSettings():
+  def loadServerSettings(tag):
     with open('ssh-servers.json') as servers_file:
       servers = json.load(servers_file)
-      return servers
+      return servers[tag]
 
   def query(self, userInput):
     # ToDo :: Load servers from file for auto-complete
@@ -23,11 +23,10 @@ class Main(Wox):
       }
     }]
 
-  def action(self, serverName, commandType = 'ssh'):
+  def action(self, tag, commandType = 'ssh'):
     if commandType == 'ssh':
       with open('ssh-servers.json') as servers_file:
-        servers = json.load(servers_file)
-        server = servers[serverName]
+        server = Main.loadServerSettings(tag)
 
         if server:
           host = server['host']
@@ -37,20 +36,15 @@ class Main(Wox):
           certificate = server['certificate']
           description = server['description']
 
-#           command = 'wt new-tab -p "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}" cmd /K "ssh'
-#           if certificate:
-#             command += ' -i ' + certificate
-#
-#           command += ' ' + username + '@' + host + ' -p ' + port + '"'
-
           # Assemble command string
-          command = '"ssh'
+          command = f"echo Connecting to: {description} && ssh "
           if certificate:
-            command += ' -i ' + certificate
+            command += f"-i {certificate} "
 
-          command += ' ' + username + '@' + host + ' -p ' + port + '"'
+          command += f"{username}@{host} -p {port}"
 
-          Popen(['wt', 'new-tab', '-p', '"{0caa0dad-35be-5f56-a8ff-afceeeaa6101}"', 'cmd', '/K', command])
+#           Popen(["cmd", '/K', command ])
+          Popen(["wt", "new-tab", "-p", '"{0caa0dad-35be-5f56-a8ff-afceeeaa6101}"', 'cmd', '/K', f"{command}" ])
           return
 
         print('No server found')
