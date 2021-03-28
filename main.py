@@ -7,24 +7,7 @@ class Main(Wox):
   def loadServerSettings(tag):
     with open('ssh-servers.json') as servers_file:
       servers = json.load(servers_file)
-#       filtered_servers = list(filter(lambda s: s['tag'] == tag, servers))
-#       if filtered_servers:
-#         return filtered_servers[0]
-#       return {}
-      for s in servers:
-        if s['tag'] == tag:
-          return s
-      return {
-        "tag": "none",
-        "type": "ssh",
-        "description": f"Trying to find: {tag}",
-        "host": "dammit.son",
-        "port": "22",
-        "username": "tier2",
-        "password": '',
-        "certificate": "nocert"
-      }
-      # return list(filter(lambda s: s['tag'] == tag, servers))
+      return next(s for s in servers if s['tag'] == tag)
 
   def searchServerSettings(tag):
     with open('ssh-servers.json') as servers_file:
