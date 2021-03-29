@@ -4,7 +4,9 @@ from ConfigManager import ConfigManager
 
 class Connect2(Wox):
 
-  def generateItem(server):
+  configManager = ConfigManager()
+
+  def generateItem(self, server):
     return {
       'Title': server['tag'],
       'SubTitle': f"🔌 {server['description']}",
@@ -28,11 +30,11 @@ class Connect2(Wox):
           'dontHideAfterAction': False
         }
       }]
-    return list(map(lambda server: Connect2.generateItem(server), ConfigManager.searchServerSettings(userInput)))
+    return list(map(lambda server: self.generateItem(server), self.configManager.searchServerSettings(userInput)))
 
   def action(self, tag, commandType = 'ssh'):
     if commandType == 'ssh':
-      server = ConfigManager.loadServerSettings(tag)
+      server = self.configManager.loadServerSettings(tag)
       if server:
         host = server['host']
         port = server['port']
@@ -50,7 +52,7 @@ class Connect2(Wox):
         command += "&& ssh "
 
         if certificate:
-          command += f"-i {certificate} "
+          command += f"-i {self.configManager.getKeysLocation()}/{certificate} "
 
         command += f"{username}@{host} -p {port}"
 

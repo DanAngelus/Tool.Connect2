@@ -1,3 +1,4 @@
 {
-  "serversConfigLocation": "D:/OneDrive/Wox/ct2/ssh-servers.json"
+  "serversConfigLocation": "D:/OneDrive/Wox/ct2/ssh-servers.json",
+  "sshKeysLocation": "D:/DeveloperTools/cmdtools/ssh/keys"
 }
